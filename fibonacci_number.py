@@ -8,12 +8,13 @@ https://en.wikipedia.org/wiki/Fibonacci_number
 '''
 
 import time
+import sys
 
 def fib (n, cache):
 
   ret = cache.get(n, None)
   if ret != None:
-    print("c= "+str(n))
+    #print("c= "+str(n))
     return ret
   if n ==0 :
     ret = 0
@@ -34,14 +35,39 @@ def fib_non_recursive(n):
 if __name__ == '__main__':
     n = int(input())
     cache ={}
-
+    #print("limit= " + str(sys.getrecursionlimit()))
+    sys.setrecursionlimit(sys.getrecursionlimit() * 5000)
     s = time.time()
     print (fib(n, cache))
     e = time.time()
 
-    print("time= "+str(e-s))
+    print("time= "+str((e-s))+" s")
 
 
 
 
+'''
+# Program to display the Fibonacci sequence up to n-th term
 
+nterms = int(input("How many terms? "))
+
+# first two terms
+n1, n2 = 0, 1
+count = 0
+
+# check if the number of terms is valid
+if nterms <= 0:
+   print("Please enter a positive integer")
+elif nterms == 1:
+   print("Fibonacci sequence upto",nterms,":")
+   print(n1)
+else:
+   print("Fibonacci sequence:")
+   while count < nterms:
+       print(n1)
+       nth = n1 + n2
+       # update values
+       n1 = n2
+       n2 = nth
+       count += 1
+'''
