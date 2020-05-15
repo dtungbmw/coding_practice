@@ -38,7 +38,7 @@ class DiagLinkedBlock:
   def next(self):
     return self.next_row, self.next_column
 
-  def print(self):
+  def printit(self):
     print("[" + str(self.row) + ", " + str(self.column) + "]= "+ str(self.value))
     #print ("["+str(self.next_row)+", "+str(self.next_column)+"]")
 
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     column =0
     while c < dim * dim:
         block=DiagLinkedBlock(4, row, column, m[row][column])
-        block.print()
+        block.printit()
         row, column = block.next()
         c +=1
 
