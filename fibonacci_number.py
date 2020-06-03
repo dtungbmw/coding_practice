@@ -27,9 +27,27 @@ def fib (n, cache):
   return ret
 
 
-def fib_non_recursive(n):
-  # TODO
-  return
+def fib_non_recursive(nterms):
+    n1, n2 = 0, 1
+    count = 0
+
+    # check if the number of terms is valid
+    if nterms <= 0:
+        print("Please enter a positive integer")
+    elif nterms == 1:
+        print("Fibonacci sequence upto", nterms, ":")
+        print(n1)
+    else:
+        print("Fibonacci sequence:")
+        while count < nterms:
+
+            nth = n1 + n2
+            #print(nth)
+            # update values
+            n1 = n2
+            n2 = nth
+            count += 1
+    return nth
 
 
 if __name__ == '__main__':
@@ -38,7 +56,12 @@ if __name__ == '__main__':
     #print("limit= " + str(sys.getrecursionlimit()))
     sys.setrecursionlimit(sys.getrecursionlimit() * 5000)
     s = time.time()
-    print (fib(n, cache))
+    #print (fib(n, cache))
+    e = time.time()
+    #print("time= " + str((e - s)) + " s")
+    s = time.time()
+    print(fib_non_recursive(n-1))
+
     e = time.time()
 
     print("time= "+str((e-s))+" s")
@@ -64,8 +87,9 @@ elif nterms == 1:
 else:
    print("Fibonacci sequence:")
    while count < nterms:
-       print(n1)
+       
        nth = n1 + n2
+       print(nth)
        # update values
        n1 = n2
        n2 = nth
