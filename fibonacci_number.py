@@ -50,6 +50,14 @@ def fib_non_recursive(nterms):
     return nth
 
 
+def fib2(n):
+    a, b = 0, 1
+    while a < n:
+        print (a, end =' ')
+        a, b = b, a+b
+    print()
+
+
 if __name__ == '__main__':
     n = int(input())
     cache ={}
@@ -65,6 +73,8 @@ if __name__ == '__main__':
     e = time.time()
 
     print("time= "+str((e-s))+" s")
+
+    fib2(n)
 
 
 
