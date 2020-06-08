@@ -10,7 +10,8 @@ for i in range(1, len(A)):
     maxSum[i] = max(A[i], A[i] + maxSum[i - 1])
 
 print (maxSum)
-
+s=sorted(maxSum)
+print(s[-1])
 
 
 
