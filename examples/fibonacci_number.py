@@ -30,32 +30,29 @@ def fib (n, cache):
 def fib_non_recursive(nterms):
     n1, n2 = 0, 1
     count = 0
-
+    nth=0
     # check if the number of terms is valid
     if nterms <= 0:
         print("Please enter a positive integer")
     elif nterms == 1:
-        print("Fibonacci sequence upto", nterms, ":")
-        print(n1)
+        #print("Fibonacci sequence upto", nterms, ":")
+        #print(n1)
+        return 1
     else:
         print("Fibonacci sequence:")
         while count < nterms:
-
-            nth = n1 + n2
-            #print(nth)
-            # update values
-            n1 = n2
-            n2 = nth
+            nth=n1+n2
+            n1, n2 = n2, nth
             count += 1
     return nth
 
 
-def fib2(n):
-    a, b = 0, 1
-    while a < n:
-        print (a, end =' ')
-        a, b = b, a+b
-    print()
+# def fib2(n):
+#     a, b = 0, 1
+#     while a < n:
+#         print (a, end =' ')
+#         a, b = b, a+b
+#     print()
 
 
 if __name__ == '__main__':
