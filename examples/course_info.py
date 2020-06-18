@@ -11,6 +11,7 @@ SemesterMap["SU"] = "Summer"
 SemesterMap["W"] = "Winter"
 SemesterMap["WINTER"] = "Winter"
 
+# need to check the negative cases
 
 class CourseParser:
 
