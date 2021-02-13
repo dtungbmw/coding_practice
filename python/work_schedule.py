@@ -1,6 +1,6 @@
 
 
-#https://github.com/tresloukadu/hackerRank-workschedule-avaliation
+#https://github.com/tresloukadu/hackerRank-workschedule-avaliation PHP version
 
 class Context :
     workHours=0
