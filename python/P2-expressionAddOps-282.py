@@ -6,20 +6,52 @@
 
 from typing import List
 class Solution:
-    result = List[str]
-    def addOperators(self, num: str, target: int, temp) -> List[str]:
-        if len(num)==1 and target != int(num[0]):
-            return None
+
+    def helper(self, num, target, pos, eq, lastVal , currResult,  finalResult):
+        print(eq)
+        if len(num) == pos:
+            if target != currResult:  # not matched
+                return False
+            else:
+                finalResult.append(eq)
+
         else:
-            self.result.append(temp)
-        for i in range(len(num)):
-            temp=""
-            if self.addOperators(num[i:-1], target - int(num[i]), temp) is not None:
-                temp=num[i]+ '+'+ temp
-        return self.result
+            for i in range(pos, len(num)):
+                currVal=num[i]
+                curr = int(num[i])
+                canDo=True
+                if len(eq) >0:
+                    print('help2')
+                    cnaDo=self.helper(num, target, pos + 1,
+                                eq= eq+'+'+currVal, lastVal=currVal ,
+                                currResult=currResult+curr, finalResult=finalResult)
+                    canDo=self.helper(num, target, pos + 1,
+                                eq=eq + '-' + currVal, lastVal=currVal,
+                                currResult=currResult - curr, finalResult=finalResult)
+
+                else:
+                    print('help1')
+                    canDo=self.helper(num, target,  pos +1, eq= currVal, lastVal=currVal , currResult=curr , finalResult=finalResult)
+
+                if canDo is False:
+                    return False
+
+    def addOperators(self, num: str, target: int) -> List[str]:
+
+        pos=0
+        eq=""
+        currResult=0
+        finalResult : List[str] =[]
+        lastVal=None
+        self.helper(num, target,pos, eq, lastVal, currResult, finalResult)
+        return finalResult
+
 
 s=Solution()
-result=s.addOperators("123", 6,[])
+result:List[str]=s.addOperators("124", 3)
+
 print(result)
+
+
 
 
