@@ -42,6 +42,8 @@ class Node:
     left = None
     value = None
 
+## https://www.youtube.com/watch?v=0Zsabo7ires
+
 def dfs(node, target):
     stack = []
     count = 0
@@ -78,3 +80,18 @@ count=dfs(a, searchFor)
 
 print("count of "+str(searchFor)+" = " + str(count))
 
+#######
+
+graph1 = {
+    'A' : ['B','S'],
+    'B' : ['A'],
+    'C' : ['D','E','F','S'],
+    'D' : ['C'],
+    'E' : ['C','H'],
+    'F' : ['C','G'],
+    'G' : ['F','S'],
+    'H' : ['E','G'],
+    'S' : ['A','C','G']
+}
+
+visited = []
