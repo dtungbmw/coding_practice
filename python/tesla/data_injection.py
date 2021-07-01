@@ -4,28 +4,46 @@ import pandas as pd
 import json
 import logging
 
-##
 
-## return data frame of signal data with site ids
 def get_raw_data():
-    log = logging.getLogger("data_collection")
+    """
+    Reteieve raw data by calling Tesla Rest apis
+    :return: Data frame
+    """
+    log = logging.getLogger(__name__)
     response = requests.get(c.SITE_REQUEST)
     sites = json.loads(response.text)
-    df = None
+    rows_list = []
     if c.SITES in sites:
         for site in sites[c.SITES]:
-            log.info(site)
             response = requests.get(c.SIGNAL_REQUEST+site)
             data = json.loads(response.text)
-            df = pd.json_normalize(data)
-            df.rename(columns={c.OLD_BATTERY_POWER_COL: c.BATTERY_POWER_COL,
-                               c.OLD_SITE_POWER_COL: c.SITE_POWER_COL,
-                               c.OLD_SOLAR_POWER_COL: c.SOLAR_POWER_COL},
-                      inplace=True)
-            df[c.SITE_COL] = site # set site id
+            data[c.SITE_COL] = site  # set site id
+            rows_list.append(data)
     else:
         log.warning("No key for sites")
+
+    df = normalize(rows_list)
     return df
+
+
+def normalize(raw_list):
+    """
+
+    :param raw_list:
+    :return:
+    """
+
+    df = pd.json_normalize(raw_list)
+    df.rename(columns={c.OLD_BATTERY_POWER_COL: c.BATTERY_POWER_COL,
+                           c.OLD_SITE_POWER_COL: c.SITE_POWER_COL,
+                           c.OLD_SOLAR_POWER_COL: c.SOLAR_POWER_COL},
+                  inplace=True)
+    return df.loc[:, df.columns.isin(c.HEADER_LIST)]
+
+
+
+
 
 
 

@@ -12,3 +12,9 @@ OLD_SOLAR_POWER_COL = 'signals.SITE_SM_solarInstPower'
 BATTERY_POWER_COL = 'battery_power'
 SITE_POWER_COL = 'site_power'
 SOLAR_POWER_COL = 'solar_power'
+
+DATA_COLLECTION = 'data_collection'
+
+RAW_DATA_FILE = "./raw_data.csv"
+
+HEADER_LIST = ['timestamp', SITE_COL, BATTERY_POWER_COL, SITE_POWER_COL,SOLAR_POWER_COL ]
