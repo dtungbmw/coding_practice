@@ -1,0 +1,7 @@
+
+
+
+* Run loader *
+python data_loader.py
+
+* Run anomaly detector

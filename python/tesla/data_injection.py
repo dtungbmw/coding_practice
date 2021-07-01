@@ -17,8 +17,10 @@ def get_raw_data():
     if c.SITES in sites:
         for site in sites[c.SITES]:
             response = requests.get(c.SIGNAL_REQUEST+site)
+            print(response.text)
             data = json.loads(response.text)
             data[c.SITE_COL] = site  # set site id
+
             rows_list.append(data)
     else:
         log.warning("No key for sites")
@@ -35,11 +37,14 @@ def normalize(raw_list):
     """
 
     df = pd.json_normalize(raw_list)
+    df[c.DATE_COL] = pd.to_datetime(df[c.TIMESTAMP_COL])
     df.rename(columns={c.OLD_BATTERY_POWER_COL: c.BATTERY_POWER_COL,
                            c.OLD_SITE_POWER_COL: c.SITE_POWER_COL,
                            c.OLD_SOLAR_POWER_COL: c.SOLAR_POWER_COL},
                   inplace=True)
-    return df.loc[:, df.columns.isin(c.HEADER_LIST)]
+    df = df.loc[:, df.columns.isin(c.HEADER_LIST)]
+
+    return df.round(2)
 
 
 
