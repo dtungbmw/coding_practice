@@ -3,7 +3,7 @@ import constant as c
 import pandas as pd
 import json
 import logging
-
+import utils as u
 
 def get_raw_data():
     """
@@ -11,24 +11,21 @@ def get_raw_data():
     :return: Data frame
     """
     log = logging.getLogger(__name__)
-    try:
-        response = requests.get(c.SITE_REQUEST)
-    except ValueError:
-        log.warning("Connection error for site request")
-    sites = json.loads(response.text)
+    sites = u.get_json_data(c.SITE_REQUEST)
     rows_list = []
     if c.SITES in sites:
         for site in sites[c.SITES]:
-            try:
-                response = requests.get(c.SIGNAL_REQUEST+site)
-                data = json.loads(response.text)
-                data[c.SITE_COL] = site  # set site id
-                rows_list.append(data)
-            except ValueError:
-                log.warning("Connection error")
+            data = u.get_json_data(c.SIGNAL_REQUEST+site)
+            if data is None:
+                continue
+            print(data)
+            data[c.SITE_COL] = site  # set site id
+            rows_list.append(data)
     else:
         log.warning("No key for sites")
 
+    if len(rows_list) == 0:
+        return None
     df = normalize(rows_list)
     return df
 

@@ -9,6 +9,8 @@ def store_signal_data():
     while True:
         # get raw data every m mins
         df = di.get_raw_data()
+        if df is None:
+            continue
         if path.exists(c.RAW_DATA_FILE):
             df.to_csv(c.RAW_DATA_FILE,index=False, header=False, mode='a')
         else:
