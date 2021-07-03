@@ -7,9 +7,9 @@ import sys
 
 def get_json_data(request):
     """
-
-    :param request:
-    :return:
+    Get json data according to the request url
+    :param request: url
+    :return: json data dict
     """
     log = logging.getLogger(__name__)
     result = None
