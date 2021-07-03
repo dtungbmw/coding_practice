@@ -11,17 +11,21 @@ def get_raw_data():
     :return: Data frame
     """
     log = logging.getLogger(__name__)
-    response = requests.get(c.SITE_REQUEST)
+    try:
+        response = requests.get(c.SITE_REQUEST)
+    except ValueError:
+        log.warning("Connection error for site request")
     sites = json.loads(response.text)
     rows_list = []
     if c.SITES in sites:
         for site in sites[c.SITES]:
-            response = requests.get(c.SIGNAL_REQUEST+site)
-            print(response.text)
-            data = json.loads(response.text)
-            data[c.SITE_COL] = site  # set site id
-
-            rows_list.append(data)
+            try:
+                response = requests.get(c.SIGNAL_REQUEST+site)
+                data = json.loads(response.text)
+                data[c.SITE_COL] = site  # set site id
+                rows_list.append(data)
+            except ValueError:
+                log.warning("Connection error")
     else:
         log.warning("No key for sites")
 
