@@ -94,6 +94,8 @@ to assume the weather fluctuate very little at each site.
 
 - Boxplot's statistics is extracted for simple anomaly analysis
 
+![solar data](images/boxplot_stats.png)
+
 - The upper and lower quartile values per site and per hour is used to decide if new data is potential outlier
 
 - Note I only collected 2 days' data, ideally, much more data is needed for better anomaly detection
@@ -112,5 +114,9 @@ to assume the weather fluctuate very little at each site.
 *** Site: 82c74b9e, date= 2021-07-04 18:12:45+00:00, hour= 18, solar= 3113.66 has anomaly detected
 
 ===> lower= 3115.965, upper= 3211.7725
+
+## Sample raw data
+
+- Sites and signal data is collected with provided Rest APIs and token over ~2 days. The **raw_data.csv** contains the sample raw data.
 
 
