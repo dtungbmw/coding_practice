@@ -23,11 +23,9 @@ def merge_data():
     data = pd.read_csv('./raw_data.csv') # read history data
     data['hour'] = data['date'].astype('datetime64[ns]').dt.hour
     bp_data = get_box_plot_data(data, sites)
-    print(bp_data)
     new_df = get_raw_data()
     new_df['hour'] = new_df['date'].astype('datetime64[ns]').dt.hour
     merged = pd.merge( new_df, bp_data, on=['hour','site'], how = 'inner')
-    print(merged)
     return merged
 
 

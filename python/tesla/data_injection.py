@@ -18,7 +18,7 @@ def get_raw_data():
             data = u.get_json_data(c.SIGNAL_REQUEST+site)
             if data is None:
                 continue
-            print(data)
+            #print(data)
             data[c.SITE_COL] = site  # set site id
             rows_list.append(data)
     else:
