@@ -1,6 +1,15 @@
 
 # **Tesla Energy Data Test**
 
+## Introduction
+
+This exercise is to run a python program to collect simulated data and 
+provide analysis for three types of data: have 3 signals from a simple system where a battery charges from excess solar and discharges at night to reduce amount of energy coming from the grid.
+
+The Rest APIs provided by Tesla is documented in https://te-data-test.herokuapp.com/
+
+
+
 ## ETL pipeline
 - Run : python3 data_loader.py
 ### Data extraction
@@ -13,6 +22,8 @@
      b. Retrieve signals info with each site id from #a
      
      c. Convert signal json result to python dictionary object with site id 
+     
+     d. Exception handling: Need to handle connection exceptions so the load can continue running even connection exceptions happen.
      
 
 ### Data transformation
@@ -34,8 +45,11 @@
 
 - Run: jupyter notebook: history_data_view.ipynb
 
-- Hourly boxplot and scatter plot time series charts are used for historical data analysis for each site. Note that it will be
-ideal to have other data, like temperature, raining to have better analysis, however we don't have these data avaialbe for this exercise.
+- Hourly boxplot and scatter plot time series charts are used for historical data analysis for each site. 
+
+- Assumption: Note that it will be
+ideal to have other data, like weather, temperature and raining to have better analysis, however we don't have these data available for this exercise. The assumption is 
+to assume the weather fluctuate very little at each site.
 
 - Historical data and anomaly analysis
 
