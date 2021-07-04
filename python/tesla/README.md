@@ -19,32 +19,78 @@
 
 - Extracted data is normalized and flatterned
 
-- Unused columes are removed and Columne names are renamed for easy reference
+- Unused columes are removed and column names are renamed for easy reference
 
-- Timestamp colume is added based on date time string
+- Timestamp column is added based on date time string
 
 ## Data Loading
 
 - Data is loaded into cvs file 
 
-- Loader had been running for 2 days and continuously append into csv file
+- Loader had been running for ~2 days and continuously append into csv file. 
 
 
 ## Historical data analysis
 
 - Run: jupyter notebook: history_data_view.ipynb
 
-- Hourly boxplot and scatter plot time series charts are used for historical data analysis for each site
+- Hourly boxplot and scatter plot time series charts are used for historical data analysis for each site. Note that it will be
+ideal to have other data, like temperature, raining to have better analysis, however we don't have these data avaialbe for this exercise.
 
+- Historical data and anomaly analysis
 
-- Anomaly analysis based on visual analysis:
+    a. Sites without data: 2b33a48d, 90791ae9
+    
+    b. Solar data pattern: Solar power should be greater than 0, the solar power increases during th day time and decreases 
+        approaching night. The power becomes 0 during the night. The following is hourly scatter and boxplot charts for site 90606897
+             
+   ![solar data](images/raw_data.png)
+   
+    c. Power data pattern: If we view all three types of power data in scatter chart, we can find a patter:
+     The battery power (blue) is charging (negative) during the day time and discharging (positive) during the night (until no more battery). The site/grid
+     power ( purple) kicks in when there is no solor or battery power. Site/grid power is used during the later night hours.
+     
+    ![solar data](images/power_pattern.png) 
+    
+    d. Sites without solar data: 2b33a48d, 90791ae9
+    
+    e. Sites with negative solar data: 61bff705, 49b6c0dd
+    
+    ![solar data](images/negative1.png)
+    
+    ![solar data](images/negative2.png)
+    
+    f. Sites with anomaly data, we can use boxplot to see the outlier data : f7f9ac09, f34b386a
+    
+    ![solar data](images/outlier1.png)
+    
+    ![solar data](images/outlier2.png)
 
-    a. 
+    g. Sites does not seem to have solar power: 2b98cbdd, 3914e59. The second one does not seem to have
+    battery power, either.
+    
+    ![solar data](images/nosolar.png)
+    
+    ![solar data](images/nosolar2.png)
 
-    b. Sites without data: 2b33a48d, 90791ae9
-
-    c. 
 
 ## Realtime anomaly analysis
 
 - Run: python3 anomaly_dector.py
+
+- Boxplot's statistics is extracted for simple anomaly analysis
+
+- The upper and lower quantile values per site and per hour is used to decide if new data is pontential outlier
+
+- Note I only collected 2 days' data, ideally, much more data is needed for better anomaly detection
+
+
+- The output will show the anomaly, e.g.:
+*** Site: f34b386a, date= 2021-07-04 18:12:44+00:00, hour= 18, solar= 12620.79 has anomaly detected
+===> lower= 11073.5725, upper= 12594.880000000001
+*** Site: 5fc96249, date= 2021-07-04 18:12:45+00:00, hour= 18, solar= 7575.57 has anomaly detected
+===> lower= 7552.712500000001, upper= 7573.4325
+*** Site: 82c74b9e, date= 2021-07-04 18:12:45+00:00, hour= 18, solar= 3113.66 has anomaly detected
+===> lower= 3115.965, upper= 3211.7725
+
+
