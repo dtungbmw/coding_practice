@@ -10,16 +10,16 @@
 
      a. Retrieve sites info 
      
-     b. Retrieve singals info with each site id from #a
+     b. Retrieve signals info with each site id from #a
      
      c. Convert signal json result to python dictionary object with site id 
      
 
 ### Data transformation
 
-- Extracted data is normalized and flatterned
+- Extracted data is normalized and flattened
 
-- Unused columes are removed and column names are renamed for easy reference
+- Removed unused columns and renamed column names for clearer reference
 
 - Timestamp column is added based on date time string
 
@@ -27,7 +27,7 @@
 
 - Data is loaded into cvs file 
 
-- Loader had been running for ~2 days and continuously append into csv file. 
+- Loader had been running for ~2 days and continuously appended into csv file. 
 
 
 ## Historical data analysis
@@ -66,7 +66,7 @@ ideal to have other data, like temperature, raining to have better analysis, how
     
     ![solar data](images/outlier2.png)
 
-    g. Sites does not seem to have solar power: 2b98cbdd, 3914e59. The second one does not seem to have
+    g. Sites do not seem to have solar power: 2b98cbdd, 3914e59. The second one does not seem to have
     battery power, either.
     
     ![solar data](images/nosolar.png)
@@ -76,21 +76,27 @@ ideal to have other data, like temperature, raining to have better analysis, how
 
 ## Realtime anomaly analysis
 
-- Run: python3 anomaly_dector.py
+- Run: python3 anomaly_detector.py
 
 - Boxplot's statistics is extracted for simple anomaly analysis
 
-- The upper and lower quantile values per site and per hour is used to decide if new data is pontential outlier
+- The upper and lower quartile values per site and per hour is used to decide if new data is potential outlier
 
 - Note I only collected 2 days' data, ideally, much more data is needed for better anomaly detection
 
 
 - The output will show the anomaly, e.g.:
+
 *** Site: f34b386a, date= 2021-07-04 18:12:44+00:00, hour= 18, solar= 12620.79 has anomaly detected
+
 ===> lower= 11073.5725, upper= 12594.880000000001
+
 *** Site: 5fc96249, date= 2021-07-04 18:12:45+00:00, hour= 18, solar= 7575.57 has anomaly detected
+
 ===> lower= 7552.712500000001, upper= 7573.4325
+
 *** Site: 82c74b9e, date= 2021-07-04 18:12:45+00:00, hour= 18, solar= 3113.66 has anomaly detected
+
 ===> lower= 3115.965, upper= 3211.7725
 
 
