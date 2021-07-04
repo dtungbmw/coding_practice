@@ -33,17 +33,25 @@ def get_json_data(request):
     return result
 
 
-def get_box_plot_data(labels, bp):
+def get_box_plot_data(data, sites):
+    labels = list(range(0, 24))
     rows_list = []
-    for i in range(len(labels)):
-        dict1 = {}
-        dict1['label'] = labels[i]
-        dict1['lower_whisker'] = bp['whiskers'][i*2].get_ydata()[1]
-        dict1['lower_quartile'] = bp['boxes'][i].get_ydata()[1]
-        dict1['median'] = bp['medians'][i].get_ydata()[1]
-        dict1['upper_quartile'] = bp['boxes'][i].get_ydata()[2]
-        dict1['upper_whisker'] = bp['whiskers'][(i*2)+1].get_ydata()[1]
-        rows_list.append(dict1)
+    for site in sites:
+        site_data = data[data.site == site]
+        ax, bp = site_data.boxplot(column='solar_power',
+                by='hour', return_type='both')['solar_power']
+        plt.title(site)
+        for i in range(len(labels)):
+            dict1 = {}
+            dict1['hour'] = labels[i]
+            #dict1['lower_whisker'] = bp['whiskers'][i*2].get_ydata()[1]
+            dict1['lower_quartile'] = bp['boxes'][i].get_ydata()[1]
+            dict1['median'] = bp['medians'][i].get_ydata()[1]
+            dict1['upper_quartile'] = bp['boxes'][i].get_ydata()[2]
+            dict1['site'] = site
+            #dict1['upper_whisker'] = bp['whiskers'][(i*2)+1].get_ydata()[1]
+            rows_list.append(dict1)
+
     return pd.DataFrame(rows_list)
 
 
@@ -67,6 +75,12 @@ def plot_box_plot(data, site):
     fig.set_size_inches(15.5, 4)
     site_data = data[data.site == site]
     sns.boxplot(y=site_data["solar_power"], x=site_data["hour"])
+
+    #plt.boxplot(site_data[["solar_power", "hour"]])
+    #labels =list(range(0, 24))
+    #bp_data = get_box_plot_data( labels, site_data.boxplot(column=["solar_power", "hour"]))
+
+    #print(bp_data)
     # q1 = site_data[['solar_power','hour']].quantile(0.25)[0]
     # q3 = site_data[['solar_power','hour']].quantile(0.75)[0]
     # a = site_data.loc[site_data['solar_power'] >q3]
