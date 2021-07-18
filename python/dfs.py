@@ -43,7 +43,7 @@ class Node:
     value = None
 
 ## https://www.youtube.com/watch?v=0Zsabo7ires
-
+# DS DFS uses Stack, memory: data structure
 def dfs(node, target):
     stack = []
     count = 0
